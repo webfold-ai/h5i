@@ -494,7 +494,7 @@ pub fn default_box_name() -> anyhow::Result<String> {
     let branch = repo
         .head()
         .ok()
-        .and_then(|h| h.shorthand().map(str::to_owned))
+        .and_then(|h| h.shorthand().ok().map(str::to_owned))
         .unwrap_or_else(|| "box".into());
     free_box_name(&slugify(&branch))
 }

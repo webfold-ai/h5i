@@ -1,6 +1,27 @@
 # Only h5i-app-pg may talk to the database directly (ROADMAP A8).
 # Run: cargo deny check bans
 
+[advisories]
+version = 2
+ignore = [
+    # RUSTSEC-2026-0543 (2026-09-14): `chrono` is unmaintained. The upstream
+    # project is archived and no patched release exists (patched = []), so no
+    # upgrade exists. Accepted maintenance risk: this notice does not establish
+    # that the crate has no security defects. chrono reaches this workspace
+    # transitively, so it cannot be swapped for the maintained `time` crate at
+    # this layer. Removal condition: drop this entry once no dependency pulls
+    # chrono in, or once chrono is replaced upstream by `time`.
+    # Added 2026-11-22 (RustSec advisory sweep).
+    "RUSTSEC-2026-0543",
+    # RUSTSEC-2026-0441 (2026-10-01): `pin-utils` is unmaintained; no patched
+    # release exists (patched = []). Accepted maintenance risk: this notice
+    # does not establish that the crate has no security defects. It arrives
+    # through futures-util, so it cannot be removed at this layer. Removal
+    # condition: drop this entry once futures-util stops depending on it.
+    # Added 2026-11-22 (RustSec advisory sweep).
+    "RUSTSEC-2026-0441",
+]
+
 [bans]
 multiple-versions = "allow"
 wildcards = "allow"

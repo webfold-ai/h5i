@@ -679,7 +679,7 @@ pub fn history(root: &Path, id: &str, baseline: &str) -> Result<History, String>
                 commit: cursor.id().to_string(),
                 parent: Some(parent.id().to_string()),
                 time: cursor.time().seconds(),
-                message: cursor.summary().unwrap_or("").into(),
+                message: cursor.summary().ok().flatten().unwrap_or("").into(),
                 changes,
             });
         }

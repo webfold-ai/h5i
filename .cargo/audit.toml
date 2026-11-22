@@ -1,0 +1,6 @@
+# cargo-audit policy. Keep in sync with [advisories].ignore in deny.toml: both
+# entries are informational "unmaintained" notices with no patched release, and
+# each carries its reason and removal condition there.
+# Added 2026-11-22 (RustSec advisory sweep).
+[advisories]
+ignore = ["RUSTSEC-2026-0543", "RUSTSEC-2026-0441"]
