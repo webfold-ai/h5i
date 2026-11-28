@@ -5,7 +5,7 @@
 #   film/build.sh            # full build, ~1 hour on one GPU
 #   film/build.sh --publish  # also copy the poster into assets/ and the MP4 into media/demo/
 #
-# The site embeds the film from YouTube (https://youtu.be/I7m39qNO0G8).
+# The site embeds the film from YouTube (https://youtu.be/eHOLi1kxWEo).
 # --publish also copies the MP4 to media/demo/, outside docs/ so Pages does
 # not serve it; upload that file to YouTube to change the film.
 #
@@ -33,6 +33,9 @@ if [ ! -f "$HBM" ]; then
 import zipfile; z = zipfile.ZipFile('$OUT/hbm.zip')
 open('$HBM', 'wb').write(z.read('human-base-meshes-bundle-v1.4.1/human_base_meshes_bundle.blend'))"
 fi
+
+# Poly Haven textures and props (CC0) for the rooms; every file's URL and SHA-256 is pinned in assets.lock.json
+"$PY" assets.py "$OUT"
 
 "$PY" screens.py "$OUT"
 blender -b --factory-startup -P scene.py -- "$OUT" --dump-packets "$OUT/packets.json"

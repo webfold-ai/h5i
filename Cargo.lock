@@ -1309,7 +1309,7 @@ dependencies = [
 
 [[package]]
 name = "h5i"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -1339,7 +1339,7 @@ dependencies = [
 
 [[package]]
 name = "h5i-app"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "h5i-app-core",
  "h5i-app-http",
@@ -1353,10 +1353,12 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-cli"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "anyhow",
  "clap",
+ "critical-section",
+ "h5i-app-embedded",
  "h5i-app-report",
  "proc-macro2",
  "quote",
@@ -1370,14 +1372,14 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-core"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "h5i-app-std",
 ]
 
 [[package]]
 name = "h5i-app-embedded"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "critical-section",
  "embassy-net",
@@ -1399,11 +1401,11 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-gpu"
-version = "0.5.6"
+version = "0.5.7"
 
 [[package]]
 name = "h5i-app-h1"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "httparse",
  "proptest",
@@ -1411,7 +1413,7 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-http"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "axum 0.8.9",
  "h5i-app-core",
@@ -1425,7 +1427,7 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-json"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "proptest",
  "serde_json",
@@ -1433,7 +1435,7 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-mem"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "h5i-app-core",
  "h5i-app-pg",
@@ -1442,7 +1444,7 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-pg"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "bytes",
  "deadpool-postgres",
@@ -1461,14 +1463,14 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-pgsql"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "h5i-app-sql",
 ]
 
 [[package]]
 name = "h5i-app-report"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "git2",
  "serde",
@@ -1479,23 +1481,23 @@ dependencies = [
 
 [[package]]
 name = "h5i-app-schema"
-version = "0.5.6"
+version = "0.5.7"
 
 [[package]]
 name = "h5i-app-sql"
-version = "0.5.6"
+version = "0.5.7"
 
 [[package]]
 name = "h5i-app-std"
-version = "0.5.6"
+version = "0.5.7"
 
 [[package]]
 name = "h5i-app-token"
-version = "0.5.6"
+version = "0.5.7"
 
 [[package]]
 name = "h5i-app-xtask"
-version = "0.5.6"
+version = "0.5.7"
 dependencies = [
  "anyhow",
  "clap",
