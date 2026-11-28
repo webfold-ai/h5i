@@ -1890,7 +1890,7 @@ pub fn create(
         let parent_branch = opts.parent_branch.clone().unwrap_or_else(|| {
             repo.head()
                 .ok()
-                .and_then(|h| h.shorthand().map(str::to_owned))
+                .and_then(|h| h.shorthand().ok().map(str::to_owned))
                 .unwrap_or_else(|| base_commit.id().to_string())
         });
 
@@ -2218,7 +2218,7 @@ fn verify_env_worktree(
     let head_ref = wt_repo
         .head()
         .ok()
-        .and_then(|h| h.name().map(str::to_string));
+        .and_then(|h| h.name().ok().map(str::to_string));
     if head_ref.as_deref() != Some(m.branch.as_str()) {
         return Err(H5iError::Metadata(format!(
             "{}: the box's worktree is on {} but this box owns {}. The worktree HEAD is \
@@ -7688,7 +7688,7 @@ fn env_commit_subjects(repo: &Repository, base: git2::Oid, env_tip: git2::Oid) -
     let _ = walk.set_sorting(git2::Sort::TOPOLOGICAL | git2::Sort::REVERSE);
     for oid in walk.flatten() {
         if let Ok(commit) = repo.find_commit(oid) {
-            let subject = commit.summary().unwrap_or("").trim();
+            let subject = commit.summary().ok().flatten().unwrap_or("").trim();
             if !subject.is_empty() {
                 subjects.push(format!("{} {}", &oid.to_string()[..7], subject));
             }
@@ -8228,7 +8228,7 @@ fn base_gitlinks(tree: &git2::Tree) -> HashMap<String, git2::Oid> {
     // `dir` is the parent prefix ("" at the root, "examples/" one level down).
     let _ = tree.walk(git2::TreeWalkMode::PreOrder, |dir, entry| {
         if entry.filemode() == 0o160000
-            && let Some(name) = entry.name()
+            && let Some(name) = entry.name().ok()
         {
             out.insert(format!("{dir}{name}"), entry.id());
         }
@@ -8477,7 +8477,7 @@ pub fn apply(
 
     // The reviewer must be ON the parent branch with a clean tracked tree.
     let head = repo.head()?;
-    let current = head.shorthand().unwrap_or("").to_string();
+    let current = head.shorthand().ok().unwrap_or("").to_string();
     if current != m.parent_branch {
         return Err(H5iError::Metadata(format!(
             "apply runs from the parent branch '{}' (currently on '{current}') — check it out first",
@@ -12004,7 +12004,7 @@ mod tests {
     fn open_env_worktree_accepts_the_box_it_belongs_to() {
         let (_d, h5i_root, m) = worktree_fixture();
         let wt = open_env_worktree(&h5i_root, &m).expect("the box's own worktree opens");
-        assert_eq!(wt.head().unwrap().name(), Some(m.branch.as_str()));
+        assert_eq!(wt.head().unwrap().name().ok(), Some(m.branch.as_str()));
     }
 
     /// The advisory case: the box rewrites `$WORK/.git` to point at the host
